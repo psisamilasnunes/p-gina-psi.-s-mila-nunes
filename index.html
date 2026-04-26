@@ -971,6 +971,37 @@ footer {
   font-size: 14px;
   font-weight: 500;
 }
+
+.review-cta-wrapper {
+  text-align: center;
+  margin-top: 55px;
+}
+.review-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 18px 34px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: .2px;
+  color: #fff;
+  background: linear-gradient(135deg, #6f4e37, #a97753);
+  box-shadow: 0 12px 30px rgba(111,78,55,.22);
+  transition: all .28s ease;
+}
+.review-cta-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 38px rgba(111,78,55,.30);
+}
+.review-cta-btn:active { transform: translateY(-1px); }
+.review-cta-text {
+  margin-top: 14px;
+  font-size: 14px;
+  color: #7d7d7d;
+}
 </style>
 <!-- Meta Pixel Code --> 
 <script>
@@ -1242,6 +1273,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <h2>O que dizem sobre o atendimento</h2>
     <p class="subtitle">Relatos autorizados e publicados anonimamente.</p>
     <div id="reviewsGrid"></div>
+
+    <div class="review-cta-wrapper">
+      <a 
+         href="https://forms.gle/frxPYSAH9EVDLuSG8"
+         target="_blank"
+         rel="noopener noreferrer"
+         class="review-cta-btn"
+         aria-label="Compartilhar relato anonimamente"
+      >
+         Compartilhar relato anonimamente
+      </a>
+      <p class="review-cta-text">
+         Espaço opcional, sigiloso e sem identificação.
+      </p>
+    </div>
   </div>
 </section>
 
