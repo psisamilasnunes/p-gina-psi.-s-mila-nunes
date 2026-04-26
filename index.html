@@ -919,6 +919,58 @@ footer {
 .delay-1 { animation-delay: 0.15s; }
 .delay-2 { animation-delay: 0.3s; }
 .delay-3 { animation-delay: 0.45s; }
+
+/* ─── REVIEWS SECTION ─── */
+.reviews-section {
+  padding: 80px 20px;
+  background: #fafafa;
+}
+.reviews-section h2 {
+  text-align: center;
+  font-size: 36px;
+  margin-bottom: 10px;
+  color: #222;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+.reviews-section .subtitle {
+  text-align: center;
+  color: #666;
+  margin-bottom: 50px;
+  font-size: 16px;
+}
+#reviewsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
+}
+.review-card {
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.08);
+  transition: transform .3s, box-shadow .3s;
+}
+.review-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 18px 40px rgba(200,98,42,0.14);
+}
+.review-stars {
+  font-size: 22px;
+  margin-bottom: 15px;
+}
+.review-text {
+  color: #444;
+  line-height: 1.7;
+  margin-bottom: 15px;
+  font-style: italic;
+}
+.review-author {
+  color: #888;
+  font-size: 14px;
+  font-weight: 500;
+}
 </style>
 <!-- Meta Pixel Code --> 
 <script>
@@ -1183,6 +1235,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </section>
 
+
+<!-- ══ REVIEWS ══ -->
+<section class="reviews-section">
+  <div class="container">
+    <h2>O que dizem sobre o atendimento</h2>
+    <p class="subtitle">Relatos autorizados e publicados anonimamente.</p>
+    <div id="reviewsGrid"></div>
+  </div>
+</section>
+
 <footer>
   <div class="footer-inner">
     <div class="footer-top">
@@ -1267,6 +1329,34 @@ window.addEventListener('scroll', () => {
     header.classList.remove('header-hidden');
   }
 });
+
+  // ─── Reviews from Google Sheets ───
+  (function loadReviews() {
+    const apiURL = "https://script.google.com/macros/s/AKfycbxpC9p5jdAPd8dUKygk1GmsZTaw2pPbJ-LqMxNyS52i5iyT8haoQpip3o7cliocEMjQ/exec";
+    fetch(apiURL)
+      .then(res => res.json())
+      .then(data => {
+        const grid = document.getElementById("reviewsGrid");
+        if (!data.length) {
+          grid.innerHTML = "<p style='text-align:center;color:#888;'>Em breve novos relatos.</p>";
+          return;
+        }
+        data.forEach(item => {
+          const card = document.createElement("div");
+          card.className = "review-card";
+          card.innerHTML = `
+            <div class="review-stars">${"⭐".repeat(item.estrelas)}</div>
+            <div class="review-text">"${item.relato}"</div>
+            <div class="review-author">Relato autorizado</div>
+          `;
+          grid.appendChild(card);
+        });
+      })
+      .catch(() => {
+        const grid = document.getElementById("reviewsGrid");
+        if (grid) grid.innerHTML = "<p style='text-align:center;color:#aaa;'>Não foi possível carregar os relatos.</p>";
+      });
+  })();
 </script>
 </body>
 </html>
